@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+// const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const todoRoutes = express.Router();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4000;
 let Todo = require('./models/todosmodel');
 
-
+app.use(cors());
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
 const connection = mongoose.connection;
