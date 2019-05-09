@@ -20,7 +20,7 @@ export default class TodosList extends Component {
         this.state = {todos: []};
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/todos/')
+        axios.get('/todos/')
             .then(response => {
                 if(this.unmounted) return;
                 this.setState({ todos: response.data });
@@ -30,7 +30,7 @@ export default class TodosList extends Component {
             });
     }
     componentDidUpdate() {
-        axios.get('http://localhost:4000/todos/')
+        axios.get('/todos/')
         .then(response => {
             if(this.unmounted) return;
             this.setState({ todos: response.data });
