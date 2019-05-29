@@ -51,17 +51,7 @@ todoRoutes.route('/').get(function(req, res) {
     });
   });
 
-  app.post('/api/account/signup', (req,res,next) => {
-      const { body } = reql;
-      const {
-          firstName,
-          lastName,
-          email,
-          password} = body;
-
-     
-      
-  });
+  
   
   app.use('/todos', todoRoutes);
 }

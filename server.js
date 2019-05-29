@@ -10,6 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI || config.db_dev, { useNewUrlParser: true });
+
 const connection = mongoose.connection;
 
 connection.once('open', function() {
@@ -17,6 +18,7 @@ connection.once('open', function() {
 })
 
 require('./routes/apiRoutes.js')(app);
+require('./routes/signin.js')(app);
 
 
 if (process.env.NODE_ENV === "production") {

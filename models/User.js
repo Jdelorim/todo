@@ -1,5 +1,6 @@
     
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
@@ -34,12 +35,12 @@ let UserSchema = new Schema({
     }
 });
 
-userSchema.methods.generateHash = function(password) {
+UserSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-userSchema.methods.validatePassword = function(password) {
+UserSchema.methods.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-module.exports = mongoose.model('userSchema', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
