@@ -4,11 +4,12 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 4000;
+const config = require('./config/config.js');
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || config.db_dev, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {

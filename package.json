@@ -3,23 +3,24 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn run client\"",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && yarn run start",
     "install": "cd client && yarn install",
     "build": "cd client && yarn run build",
-    "heroku-postbuild": "yarn run build"
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
-    "node": "10.15.3",
+    "node": "10.16.0",
+    "npm": "6.9.0",
     "yarn": "1.10.1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
@@ -31,5 +32,13 @@
     "concurrently": "^4.1.0",
     "nodemon": "^1.19.0"
   },
-  "repository": "https://github.com/Jdelorim/todo.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jdelorim/todo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jdelorim/todo/issues"
+  },
+  "homepage": "https://github.com/Jdelorim/todo#readme",
+  "description": ""
 }

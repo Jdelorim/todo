@@ -1,8 +1,8 @@
 
 const todoRoutes = require('express').Router();
-let Todo = require('../models/todosmodel');
+let Todo = require('../models/Todos');
 
-module.exports = (app)=>{
+module.exports = (app) => {
      
 todoRoutes.route('/').get(function(req, res) {
     Todo.find(function(err, todos) {
@@ -49,6 +49,18 @@ todoRoutes.route('/').get(function(req, res) {
                 res.status(400).send("Update not possible");
             });
     });
+  });
+
+  app.post('/api/account/signup', (req,res,next) => {
+      const { body } = reql;
+      const {
+          firstName,
+          lastName,
+          email,
+          password} = body;
+
+     
+      
   });
   
   app.use('/todos', todoRoutes);
