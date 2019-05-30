@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-
+// const Emailtaken = () => (
+//     <div className='hidden'>
+//           <h1>Email Taken!</h1>
+//       </div>
+//     )
+const Usernametaken = () => (
+        <div className='hidden'>
+              <h1>Username Taken!</h1>
+          </div>
+        )
 export default class Signup extends Component {
     constructor(props) {
         super(props);
@@ -8,25 +18,69 @@ export default class Signup extends Component {
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
+        this.toggleHiddenEmail = this.toggleHiddenEmail.bind(this);
+        this.toggleHiddenUser = this.toggleHiddenUser.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             userName: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            newEmail: [],
+            newUsername: [],
+            isHiddenEmail: true,
+            isHiddenUser: true,
+            checkme: false
         }
     }
 
+    componentDidMount(){
+        axios.get('/login/').then(res => {
+            if(this.unmounted) return;
+            this.setState({
+                info: res.data
+            })
+            const getInfo = {
+                email: [],
+                username: []
+            }
+            for(let i=0;i<this.state.info.length;i++) {
+                getInfo.email.push(this.state.info[i].email);
+                getInfo.username.push(this.state.info[i].userName); 
+            }
+            this.setState({
+                newEmail: getInfo.email,
+                newUsername: getInfo.username
+            })
+            console.log('emails'+ this.state.newEmail);
+            console.log(`users: ${this.state.newUsername}`);
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
     onChangeUsername(e){
+        if(this.state.checkme === true){
+            this.toggleHiddenUser();
+            this.setState({
+                checkme: false
+            })
+        }
         this.setState({
             userName: e.target.value
         });
     }
     onChangeEmail(e) {
+        if(this.state.checkme === true){
+            this.toggleHiddenEmail();
+            this.setState({
+                checkme: false
+            })
+        }
         this.setState({
             email: e.target.value
-        })
+        });
     }
     onChangePassword(e){
         this.setState({
@@ -38,6 +92,17 @@ export default class Signup extends Component {
             confirmPassword: e.target.value
         })
     }
+    toggleHiddenEmail () {
+        this.setState({
+          isHiddenEmail: !this.state.isHiddenEmail
+        })
+      }
+
+      toggleHiddenUser () {
+        this.setState({
+          isHiddenUser: !this.state.isHiddenUser
+        })
+      }
 
     onSubmit(e) {
         e.preventDefault();
@@ -55,6 +120,29 @@ export default class Signup extends Component {
             alert("passwords do not match");
             return;
         }
+        
+        for(var i=0;i<this.state.newEmail.length;i++){
+            if(this.state.newEmail[i] === this.state.email){
+                console.log('it matches');
+                this.toggleHiddenEmail();
+                this.setState({
+                    checkme: true
+                });
+                return;
+            }  
+        }
+
+        for(var j=0;j<this.state.newUsername.length;j++){
+                if(this.state.userName === this.state.newUsername[i]){
+                    console.log('user taken');
+                    this.toggleHiddenUser();
+                    this.setState({
+                        checkme: true
+                    });
+                    return;
+                }
+            }
+           
         
       
         fetch('todos/signup', {
@@ -110,6 +198,8 @@ export default class Signup extends Component {
 
                     <div className='form-group'>
                         <input type='submit' value='Sign Up'  className='btn btn-primary' />
+                        
+                        {!this.state.isHiddenUser && <Usernametaken />}
                    </div>
                 </form>
             </div>

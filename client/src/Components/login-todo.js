@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const Emailtaken = () => (
-    <div className='hidden'>
-          <h1>Email Taken!</h1>
-      </div>
-    )
+// const Emailtaken = () => (
+//     <div className='hidden'>
+//           <h1>Email Taken!</h1>
+//       </div>
+//     )
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -52,7 +52,7 @@ export default class Login extends Component {
                      username: getinfo.username
                  });
                 
-                console.log('emails'+ this.state.newEmail)
+                console.log('emails'+ this.state.newEmail);
                
             }).catch(err =>{
                 console.log(err);
@@ -122,7 +122,7 @@ export default class Login extends Component {
 
                     <div className='form-group'>
                         <input  type='submit' value='Login' className='btn btn-primary' />
-                        {!this.state.isHidden && <Emailtaken />}
+                       
                     </div>
                 </form>
 
