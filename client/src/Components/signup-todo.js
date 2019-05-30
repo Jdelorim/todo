@@ -69,7 +69,9 @@ export default class Signup extends Component {
         }
         this.setState({
             userName: e.target.value
+
         });
+        console.log("username: "+this.state.userName);
     }
     onChangeEmail(e) {
         if(this.state.checkme === true){
