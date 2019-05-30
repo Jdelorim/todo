@@ -78,6 +78,16 @@ todoRoutes.route('/signup').post((req,res)=>{
 
 });
 
+app.get('/login', function (req, res) {
+    Users.find(function(err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    });
+  })
+
 
   
   
