@@ -2,6 +2,7 @@
 const todoRoutes = require('express').Router();
 let Todo = require('../models/Todos');
 let Users = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 module.exports = (app) => {
      
@@ -54,10 +55,11 @@ todoRoutes.route('/').get(function(req, res) {
 
 
 todoRoutes.route('/signup').post((req,res)=>{
-    let username = new Users(req.body);
-    console.log(`username:${username}`);
+    const username = new Users(req.body);
     
-
+    username.password = username.generateHash(req.body.password);
+    console.log(`username:${username}`);
+    console.log(`pw: ${req.body.password}`);
     username.save()
     .then(username => {
         res.status(200).json({'username': 'added'});
@@ -68,16 +70,7 @@ todoRoutes.route('/signup').post((req,res)=>{
 
 });
 
-todoRoutes.route('/view').get((req,res)=>{
-    users.find(function(err, users) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(users);
-        }
-    });
 
-})
   
   
   app.use('/todos', todoRoutes);

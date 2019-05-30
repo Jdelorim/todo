@@ -27,8 +27,8 @@ export default class Signup extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(`e: ${this.state.userName}`);
-        console.log(`e: ${this.state.password}`);
+        console.log(`username: ${this.state.userName}`);
+        console.log(`password: ${this.state.password}`);
 
         const info = {
             userName: this.state.userName,
@@ -80,7 +80,7 @@ export default class Signup extends Component {
                             onChange={this.onChangeUsername} />
                     </div> */}
                     <div className='form-group'>
-                        <input type='submit' value='signup'  className='btn btn-primary' />
+                        <input type='submit' value='Sign Up'  className='btn btn-primary' />
                    </div>
                 </form>
             </div>
