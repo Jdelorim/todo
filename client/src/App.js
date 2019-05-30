@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import CreateTodo from './Components/create-todo';
 import EditTodo from './Components/edit-todo';
 import TodosList from './Components/todos-list';
+import Signup from './Components/signup-todo';
 
 import logo from './images/jdlogo.png';
 class App extends Component{
@@ -27,6 +28,9 @@ class App extends Component{
                 <li>
                   <Link to='/create' className='nav-link'>Create Todo</Link>
                 </li>
+                <li>
+                  <Link to='/signup' className='nav-link'>Sign Up</Link>
+                </li>
                </ul>
             </div>
           </nav>
@@ -34,6 +38,7 @@ class App extends Component{
           <Route path='/' exact component={ TodosList } />
           <Route path='/edit/:id' component={ EditTodo } />
           <Route path='/create' component= { CreateTodo } />
+          <Route path='/signup'component= { Signup } />
         </div>
       </Router>
     )

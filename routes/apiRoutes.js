@@ -1,6 +1,7 @@
 
 const todoRoutes = require('express').Router();
 let Todo = require('../models/Todos');
+let Users = require('../models/User');
 
 module.exports = (app) => {
      
@@ -51,6 +52,32 @@ todoRoutes.route('/').get(function(req, res) {
     });
   });
 
+
+todoRoutes.route('/signup').post((req,res)=>{
+    let username = new Users(req.body);
+    console.log(`username:${username}`);
+    
+
+    username.save()
+    .then(username => {
+        res.status(200).json({'username': 'added'});
+    })
+    .catch(err => {
+        res.status(400).send('adding username failed');
+    });
+
+});
+
+todoRoutes.route('/view').get((req,res)=>{
+    users.find(function(err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    });
+
+})
   
   
   app.use('/todos', todoRoutes);

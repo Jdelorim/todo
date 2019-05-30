@@ -18,7 +18,7 @@ connection.once('open', function() {
 })
 
 require('./routes/apiRoutes.js')(app);
-require('./routes/signin.js')(app);
+
 
 
 if (process.env.NODE_ENV === "production") {
