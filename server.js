@@ -9,7 +9,7 @@ const config = require('./config/config.js');
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI || config.db_dev, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/todos', { useNewUrlParser: true });
 
 const connection = mongoose.connection;
 
