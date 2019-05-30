@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
+// import axios from 'axios';
 
 
 
@@ -22,16 +22,30 @@ export default class EditToDo extends Component {
         }
     }
     componentDidMount() {
-        axios.get('/todos/'+this.props.match.params.id)
-            .then(res => {
-                this.setState({todo_description: res.data.todo_description,
-                                todo_responsible: res.data.todo_responsible,
-                                todo_priority: res.data.todo_priority,
-                                todo_completed: res.data.todo_completed
-                            });
-            }).catch(err => {
-                console.log(`Error:${err}`);
-            })
+
+        // axios.get('/todos/'+this.props.match.params.id)
+        //     .then(res => {
+        //         this.setState({todo_description: res.data.todo_description,
+        //                         todo_responsible: res.data.todo_responsible,
+        //                         todo_priority: res.data.todo_priority,
+        //                         todo_completed: res.data.todo_completed
+        //                     });
+        //     }).catch(err => {
+        //         console.log(`Error:${err}`);
+        //     })
+            
+        fetch('/todos/'+this.props.match.params.id)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          this.setState({todo_description: data.todo_description,
+                        todo_responsible: data.todo_responsible,
+                        todo_priority: data.todo_priority,
+                        todo_completed: data.todo_completed
+                        });
+        })
+        .catch(error => console.error(error))
+
     }
     onChangeTodoDescription(e) {
         this.setState({
@@ -61,13 +75,23 @@ export default class EditToDo extends Component {
             todo_priority: this.state.todo_priority,
             todo_completed: this.state.todo_completed
         };
-        axios.post('/todos/update/'+this.props.match.params.id, obj)
-            .then(res=>{
-                console.log(res.data);
-            })
 
-            this.props.history.push('/');
+        // axios.post('/todos/update/'+this.props.match.params.id, obj)
+        //     .then(res=>{
+        //         console.log(res.data);
+        //     })
 
+        
+        
+        fetch('/todos/update/'+this.props.match.params.id, {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+          });
+
+          this.props.history.push('/');
     }
     
     render() {

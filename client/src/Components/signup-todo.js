@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 
 export default class Signup extends Component {
     constructor(props) {
@@ -56,10 +56,15 @@ export default class Signup extends Component {
             return;
         }
         
-        axios.post('todos/signup', info)
-            .then(res =>{
-                console.log(res.data);
-        });
+      
+        fetch('todos/signup', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(info)
+          });
+          
 
         this.setState({
             userName: '',

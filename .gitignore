@@ -1,5 +1,4 @@
+
 node_modules
-./config/config.js
-node_modules
- .DS_Store
-# .env
+.DS_Store
+./config

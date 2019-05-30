@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import { runInThisContext } from 'vm';
+
+// import axios from 'axios';
 
 const Todo = props => (
     <tr>
@@ -20,24 +22,43 @@ export default class TodosList extends Component {
         this.state = {todos: []};
     }
     componentDidMount() {
-        axios.get('/todos/')
-            .then(response => {
-                if(this.unmounted) return;
-                this.setState({ todos: response.data });
+        // axios.get('/todos/')
+        //     .then(response => {
+        //         if(this.unmounted) return;
+        //         this.setState({ todos: response.data });
                
-            }).catch(err =>{
-                console.log(err);
-            });
+        //     }).catch(err =>{
+        //         console.log(err);
+        //     });
+        fetch('/todos/')
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            if(this.unmounted) return;
+               this.setState({ todos: response });
+        })
+        .catch(error => console.error(error))
+      
+        
     }
     componentDidUpdate() {
-        axios.get('/todos/')
+        // axios.get('/todos/')
+        // .then(response => {
+        //     if(this.unmounted) return;
+        //     this.setState({ todos: response.data });
+           
+        // }).catch(err =>{
+        //     console.log(err);
+        // });
+        fetch('/todos/')
+        .then(response => response.json())
         .then(response => {
             if(this.unmounted) return;
-            this.setState({ todos: response.data });
-           
-        }).catch(err =>{
-            console.log(err);
-        });
+            this.setState({
+                todos: response
+            })
+        })
+        .catch(err=>console.log(`error: ${err}`));
 
     }
    
