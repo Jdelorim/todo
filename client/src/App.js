@@ -6,7 +6,7 @@ import CreateTodo from './Components/create-todo';
 import EditTodo from './Components/edit-todo';
 import TodosList from './Components/todos-list';
 import Signup from './Components/signup-todo';
-
+import Login from './Components/login-todo';
 import logo from './images/jdlogo.png';
 class App extends Component{
 
@@ -31,6 +31,9 @@ class App extends Component{
                 <li>
                   <Link to='/signup' className='nav-link'>Sign Up</Link>
                 </li>
+                <li>
+                  <Link to='/login' className='nav-link'>Login</Link>
+                </li>
                </ul>
             </div>
           </nav>
@@ -39,6 +42,7 @@ class App extends Component{
           <Route path='/edit/:id' component={ EditTodo } />
           <Route path='/create' component= { CreateTodo } />
           <Route path='/signup'component= { Signup } />
+          <Route path='/login' component = { Login } />
         </div>
       </Router>
     )
