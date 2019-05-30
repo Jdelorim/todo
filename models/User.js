@@ -9,35 +9,24 @@ let UserSchema = new Schema({
         required: true,
         trim: true
     },
+    email: {
+        type: String,
+        required: true,
+        trim: true
+    },
     password: {
         type: String,
         required: true,
         trim: true
+    },
+    timestamp: {
+        type: String,
+        default: Date.now()
+    }, 
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
-    // firstName: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
-    // lastName: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
-    // email: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
-    // password: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
-    // isDeleted: {
-    //     type: Boolean,
-    //     default: false
-    // }
 });
 
 UserSchema.methods.generateHash = function(password) {

@@ -55,17 +55,21 @@ todoRoutes.route('/').get(function(req, res) {
 
 
 todoRoutes.route('/signup').post((req,res)=>{
-    const username = new Users(req.body);
+     const userName = new Users(req.body);
     
-    username.password = username.generateHash(req.body.password);
-    console.log(`username:${username}`);
-    console.log(`pw: ${req.body.password}`);
-    username.save()
+    userName.email = req.body.email.toLowerCase();
+    console.log(`pw: ${userName.password}`);
+    
+
+    userName.password = userName.generateHash(req.body.password);
+    console.log(`username:${userName}`);
+    
+    userName.save()
     .then(username => {
-        res.status(200).json({'username': 'added'});
+         res.status(200).json({'username': 'added'});
     })
     .catch(err => {
-        res.status(400).send('adding username failed');
+         res.status(400).send('adding username failed');
     });
 
 });

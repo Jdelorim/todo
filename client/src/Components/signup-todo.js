@@ -5,12 +5,16 @@ export default class Signup extends Component {
     constructor(props) {
         super(props);
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             userName: '',
-            password: ''
+            email: '',
+            password: '',
+            confirmPassword: ''
         }
     }
 
@@ -19,9 +23,19 @@ export default class Signup extends Component {
             userName: e.target.value
         });
     }
+    onChangeEmail(e) {
+        this.setState({
+            email: e.target.value
+        })
+    }
     onChangePassword(e){
         this.setState({
             password: e.target.value
+        })
+    }
+    onChangeConfirmPassword(e){
+        this.setState({
+            confirmPassword: e.target.value
         })
     }
 
@@ -29,10 +43,17 @@ export default class Signup extends Component {
         e.preventDefault();
         console.log(`username: ${this.state.userName}`);
         console.log(`password: ${this.state.password}`);
+        console.log(`email ${this.state.email}`)
 
         const info = {
             userName: this.state.userName,
-            password: this.state.password
+            email: this.state.email,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword
+        }
+        if(this.state.confirmPassword !== this.state.password) {
+            alert("passwords do not match");
+            return;
         }
         
         axios.post('todos/signup', info)
@@ -42,7 +63,9 @@ export default class Signup extends Component {
 
         this.setState({
             userName: '',
-            password: ''
+            email: '',
+            password: '',
+            confirmPassword: ''
         });
 
     }
@@ -60,25 +83,26 @@ export default class Signup extends Component {
                     </div>
 
                     <div className='form-group'>
+                    <label>Email:</label>
+                    <input type='text' className='form-control'
+                            value={this.state.email}
+                            onChange={this.onChangeEmail} />
+                    </div>
+
+                    <div className='form-group'>
                     <label>Password:</label>
                     <input type='text' className='form-control'
                             value={this.state.password}
                             onChange={this.onChangePassword} />
                     </div>
 
-                    {/* <div className='form-group'>
-                    <label>First Name:</label>
+                    <div className='form-group'>
+                    <label>Confirm Password:</label>
                     <input type='text' className='form-control'
-                            value={this.state.firstName}
-                            onChange={this.onChangeFirstname} />
+                            value={this.state.confirmPassword}
+                            onChange={this.onChangeConfirmPassword} />
                     </div>
 
-                    <div className='form-group'>
-                    <label>Username:</label>
-                    <input type='text' className='form-control'
-                            value={this.state.userName}
-                            onChange={this.onChangeUsername} />
-                    </div> */}
                     <div className='form-group'>
                         <input type='submit' value='Sign Up'  className='btn btn-primary' />
                    </div>
